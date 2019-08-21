@@ -2,7 +2,9 @@ package br.ufpe.cin.android.calculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,7 +34,14 @@ class MainActivity : AppCompatActivity() {
             cleanExpression()
             cleanInfo()
         }
-        btn_Equal.setOnClickListener { text_calc.setText(eval(text_info.text.toString()).toString()) }
+        btn_Equal.setOnClickListener {
+            try {
+                text_calc.setText(eval(text_info.text.toString()).toString())
+            }catch (er: Exception) {
+                Toast.makeText(this, "Hoje jogou Brasil e Bósnia, sabe o que deu? Deu Bósnia!", Toast.LENGTH_LONG).show()
+                cleanExpression()
+            }
+        }
     }
 
 
@@ -41,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     // eval("2+3*4") = 14.0
     // eval("(2+3)*4") = 20.0
     //Fonte: https://stackoverflow.com/a/26227947
-    fun eval(str: String): Double {
+    private fun eval(str: String): Double {
         return object : Any() {
             var pos = -1
             var ch: Char = ' '
@@ -129,15 +138,15 @@ class MainActivity : AppCompatActivity() {
         }.parse()
     }
 
-    fun addToExpression(str: String) {
+    private fun addToExpression(str: String) {
         text_info.text = text_info.text.toString() + str;
     }
 
-    fun cleanExpression() {
+    private fun cleanExpression() {
        text_info.text = ""
     }
 
-    fun cleanInfo() {
+    private fun cleanInfo() {
         text_calc.setText("")
     }
 }
