@@ -2,12 +2,37 @@ package br.ufpe.cin.android.calculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        btn_0.setOnClickListener { addToExpression(btn_0.text.toString()) }
+        btn_1.setOnClickListener { addToExpression(btn_1.text.toString()) }
+        btn_2.setOnClickListener { addToExpression(btn_2.text.toString()) }
+        btn_3.setOnClickListener { addToExpression(btn_3.text.toString()) }
+        btn_4.setOnClickListener { addToExpression(btn_4.text.toString()) }
+        btn_5.setOnClickListener { addToExpression(btn_5.text.toString()) }
+        btn_6.setOnClickListener { addToExpression(btn_6.text.toString()) }
+        btn_7.setOnClickListener { addToExpression(btn_7.text.toString()) }
+        btn_8.setOnClickListener { addToExpression(btn_8.text.toString()) }
+        btn_9.setOnClickListener { addToExpression(btn_9.text.toString()) }
+        btn_Add.setOnClickListener { addToExpression(btn_Add.text.toString()) }
+        btn_Subtract.setOnClickListener { addToExpression(btn_Subtract.text.toString()) }
+        btn_Multiply.setOnClickListener { addToExpression(btn_Multiply.text.toString()) }
+        btn_Divide.setOnClickListener { addToExpression(btn_Divide.text.toString()) }
+        btn_Power.setOnClickListener { addToExpression(btn_Power.text.toString()) }
+        btn_Dot.setOnClickListener { addToExpression(btn_Dot.text.toString()) }
+        btn_LParen.setOnClickListener { addToExpression(btn_LParen.text.toString()) }
+        btn_RParen.setOnClickListener { addToExpression(btn_RParen.text.toString()) }
+        btn_Clear.setOnClickListener {
+            cleanExpression()
+            cleanInfo()
+        }
+        btn_Equal.setOnClickListener { text_calc.setText(eval(text_info.text.toString()).toString()) }
     }
 
 
@@ -102,5 +127,17 @@ class MainActivity : AppCompatActivity() {
                 return x
             }
         }.parse()
+    }
+
+    fun addToExpression(str: String) {
+        text_info.text = text_info.text.toString() + str;
+    }
+
+    fun cleanExpression() {
+       text_info.text = ""
+    }
+
+    fun cleanInfo() {
+        text_calc.setText("")
     }
 }
