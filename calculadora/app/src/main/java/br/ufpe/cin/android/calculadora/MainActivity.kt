@@ -2,11 +2,17 @@ package br.ufpe.cin.android.calculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
+
+    private var equation: String  = ""
+    private var result: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +50,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString("equation", text_info.text.toString())
+        outState.putString("result", text_calc.text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        text_info.text = savedInstanceState.getString("equation")
+        text_calc.setText(savedInstanceState.getString("result"))
+    }
 
     //Como usar a função:
     // eval("2+2") == 4.0
@@ -139,7 +158,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addToExpression(str: String) {
-        text_info.text = text_info.text.toString() + str;
+        text_info.text = text_info.text.toString() + str
     }
 
     private fun cleanExpression() {
